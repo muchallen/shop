@@ -1,4 +1,0 @@
-export const GET_ALL_PRODS = "GET_ALL_PRODS";
-export const DELETE_CART_PROD = "DELETE_CART_PROD";
-export const ADD_TO_CART = "ADD_TO_CART";
-export const DECREASE_CART_NUMBER = "DECREASE_CART_NUMBER";
