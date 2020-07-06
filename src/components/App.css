@@ -4312,3 +4312,35 @@ a{
 .filter-widget{
     position: absolute 0,0,0,0;
 }
+
+
+.card1:hover{
+		
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 2px;
+    right: 5%;
+    /* bottom: 600px; */
+    left: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: start;
+}
+
+.cartButton{
+
+	background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  border-radius: 0px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+}
+

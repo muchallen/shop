@@ -2,6 +2,7 @@ import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {deleteCart} from '../actions/products'
 import {addToCart,decreaseCartNumber} from '../actions/products'
+import { Link } from 'react-router-dom'
 
 const Cart =(props)=> {
 
@@ -12,7 +13,7 @@ const Cart =(props)=> {
     var sum =0
     props.cartproducts.map((prod)=>{
  
-      return sum=sum+prod.quantity * prod.product.price
+      return sum=(sum+prod.quantity * prod.product.productPrice)
  
     })
 
@@ -25,15 +26,16 @@ const Cart =(props)=> {
 
         return(
         <tr>
-        <td className="cart-pic first-row"><img className="cart-pic1"  src={require(`../../public/imagess/${prod.product.imageSrc}`)} style={{width:"100px",height:"100px"}} alt=""/></td>
+        <td className="cart-pic first-row"><img className="cart-pic1"  src={require(`../../public/imagess/${prod.product.image}`)} style={{width:"100px",height:"100px"}} alt=""/></td>
     <td class="cart-title first-row">
-        <h5 className="p-name" >{prod.product.name}</h5>
+        <h5 className="p-name" >{prod.product.productName}</h5>
     </td>
-    <td className="p-price first-row">${prod.product.price}</td>
+    <td className="p-price first-row">${prod.product.productPrice}</td>
     <td className="qua-col first-row">
         <div class="">
             <div className="" style={{display:"flex"}}>
-                <button onClick={()=>{props.decreaseCartNumber(prod)}}  className="btn btn-danger pl-3 pr-3 mr-2">-</button><input type="text" className="form-control" style={{width:"3em"}} value={prod.quantity} /><button onClick={()=>incrementCart(prod)}  className="btn ml-2 btn-success pl-3 pr-3">+</button>
+                <button onClick={()=>{props.decreaseCartNumber(prod)}}  className="cartButton btn-danger pl-3 pr-3 mr-2" style={{width:"4em",backgroundColor:"red   "}}>-</button><input type="text" className="form-control" style={{width:"4em",
+                        height:"4em"}} value={prod.quantity} /><button onClick={()=>incrementCart(prod)} style={{width:"4em"}} className="cartButton ml-2 btn-success pl-3 pr-3">+</button>
             </div>
         </div>
     </td>
@@ -43,7 +45,7 @@ const Cart =(props)=> {
     
     
     </td>
-    <td className="close-td first-row" onClick={()=>handleDelete(prod.product.name)}><i class="ti-close"></i></td>
+    <td className="close-td  first-row"  onClick={()=>handleDelete(prod.product.name)}><button className=" btn btn-outline-danger " style={{width:"4em",height:"4em" , border:"none"}}><i className="ti-close"></i></button></td>
     </tr>)
     })
 
@@ -84,9 +86,9 @@ const Cart =(props)=> {
                             <div className="proceed-checkout">
                                 <ul>
                                     
-    <li >Total <span className="cart-total">${sum}.00</span></li>
+    <li >Total <span className="cart-total">${parseFloat(sum).toFixed(2)}</span></li>
                                 </ul>
-                                <a href="check-out.html" className="proceed-btn">PROCEED TO CHECK OUT</a>
+                                <Link to="/checkout"className="proceed-btn">PROCEED TO CHECK OUT</Link>
                             </div>
                         </div>
                     </div>

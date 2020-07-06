@@ -1,7 +1,13 @@
-import {GET_ALL_PRODS} from '../actions/types'
+import {GET_ALL_PRODS,FILTER_PRODUCTS, ADD_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT} from '../actions/types'
 
 const initialState = {
-    products : []}
+    products : [],
+    filtered:[],
+    message:''
+    
+}
+
+
 
 
 export default  (state=initialState,action)=>{
@@ -11,6 +17,32 @@ export default  (state=initialState,action)=>{
                 ...state,
                 products:action.payload
             }
+        case FILTER_PRODUCTS:
+            return {
+                ...state,
+                filtered: state.products.filter(prod=>{
+                    return prod.productCategory===action.payload
+                })
+            }
+        case ADD_PRODUCT:
+                return {
+                   products:state.products,
+                   message:action.payload
+
+                    }
+        case DELETE_PRODUCT:
+            return{
+                ...state,
+                products: state.products.filter(prod=>{
+                    return prod.id!==action.payload
+                })
+            }
+            case UPDATE_PRODUCT:
+            return{
+                products: [...state.products]
+                }
+            
+                
             default:
                 return state
     }

@@ -13,6 +13,7 @@
     "gh-pages": "^3.0.0",
     "jquery": "^3.4.1",
     "mysqli": "^3.0.11",
+    "paynow": "^1.0.9",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.13.0",
@@ -30,7 +31,7 @@
   },
   "homepage": "https://muchallen.github.io/store",
   "scripts": {
-    "predeploy":"npm run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -9,7 +9,7 @@ export default  (state,action)=>{
     switch(action.type){
         case ADD_TO_CART:
             for(let i =0;i<state.cart.length;i++){
-                    if(state.cart[i].product.name===action.payload.product.name){
+                    if(state.cart[i].product.productName===action.payload.product.productName){
                         state.cart[i].quantity=state.cart[i].quantity+1
                         return {cart: [...state.cart]}
             }}
@@ -18,7 +18,7 @@ export default  (state,action)=>{
             }        
         case DECREASE_CART_NUMBER:
                 for(let i =0;i<state.cart.length;i++){
-                        if(state.cart[i].product.name===action.payload.product.name){
+                        if(state.cart[i].product.productName===action.payload.product.productName){
                             if(state.cart[i].quantity<=1){
                                 state.cart[i].quantity=1
                             }else{
@@ -32,7 +32,7 @@ export default  (state,action)=>{
         case DELETE_CART_PROD:
             return{
                 cart: state.cart.filter(prod=>{
-                    return prod.product.name !== action.payload
+                    return prod.product.productName !== action.payload
                 })
             }
             default:

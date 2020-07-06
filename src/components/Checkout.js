@@ -1,17 +1,43 @@
-import React , {Fragment} from 'react'
+import React , {Fragment, useState} from 'react'
 import {connect} from 'react-redux'
 
+import axios from 'axios'
+
 const Checkout = (props) =>{
+    const [customer , setCustomer] = useState()
+    var reciept=[]
+
+    for(var i=0;i<props.cartProducts.length;i++){
+        reciept=[...reciept,{product:props.cartProducts[i]}]
+    }
+
+    console.log(reciept);
+
 
     var sum =0
     props.cartProducts.map((prod)=>{
  
-      return sum=sum+prod.quantity * prod.product.price
+      return sum=sum+prod.quantity * prod.product.productPrice
  
     })
 
+    const handleCustomer=(e) => {
+        setCustomer({...customer, [e.target.name]:e.target.value})
+    }
+
+    const handlePay=(e)=>{
+        e.preventDefault();
+        axios.post(`http://localhost:8080/api/v1/sales`,props.cartProducts).then(res=>{if(res.data===true){
+            alert("Your Paymet Was Successfull")
+        }else{
+            alert("Your Payment failed try again later")
+        }
+        }
+        )
+    }
+
    const checkoutProducts = props.cartProducts.map(prod=>{
-    return  <li><h5>{prod.product.name} x {prod.quantity}<span>${prod.product.price*prod.quantity}</span></h5></li>
+    return  <li><h5>{prod.product.productName} x {prod.quantity}<span>${prod.product.productPrice*prod.quantity}</span></h5></li>
     })
     return (
         <Fragment>
@@ -39,37 +65,37 @@ const Checkout = (props) =>{
                         <div className="row">
                             <div className="col-lg-6">
                                 <label for="fir">First Name<span>*</span></label>
-                                <input type="text" id="fir"/>
+                                <input name="firstName" onClick={(e)=>{handleCustomer(e)}} onChange type="text"  id="fir"/>
                             </div>
                             <div className="col-lg-6">
                                 <label for="last">Last Name<span>*</span></label>
-                                <input type="text" id="last"/>
+                                <input name="lastName" onClick={(e)=>{handleCustomer(e)}} type="text" id="last"/>
                             </div>
                             <div className="col-lg-12">
                                 <label for="cun-name">Company Name</label>
-                                <input type="text" id="cun-name"/>
+                                <input name="companyName" onClick={(e)=>{handleCustomer(e)}} type="text" id="cun-name"/>
                             </div>
                            
                             <div className="col-lg-12">
                                 <label for="street">Address<span>*</span></label>
-                                <input type="text" id="street" className="street-first"/>
+                                <input name="address" onClick={(e)=>{handleCustomer(e)}} type="text" id="street" className="street-first"/>
                                 
                             </div>
                             <div className="col-lg-12">
                                 <label for="zip">Postcode / ZIP (optional)</label>
-                                <input type="text" id="zip"/>
+                                <input name="zipCode" onClick={(e)=>{handleCustomer(e)}} type="text" id="zip"/>
                             </div>
                             <div className="col-lg-12">
                                 <label for="town">Town / City<span>*</span></label>
-                                <input type="text" id="town"/>
+                                <input name="city"  onClick={(e)=>{handleCustomer(e)}} type="text" id="town"/>
                             </div>
                             <div className="col-lg-6">
                                 <label for="email">Email Address<span>*</span></label>
-                                <input type="text" id="email"/>
+                                <input name="email" onClick={(e)=>{handleCustomer(e)}} type="text" id="email"/>
                             </div>
                             <div className="col-lg-6">
                                 <label for="phone">Phone<span>*</span></label>
-                                <input type="text" id="phone"/>
+                                <input name="phone" onClick={(e)=>{handleCustomer(e)}} type="number" id="phone"/>
                             </div>
                             <div className="col-lg-12"/>
                                 
@@ -97,17 +123,17 @@ const Checkout = (props) =>{
                                 </ul>
                                 <ul className="text-right mb-3 " style={{listStyle:  "none"}}>
                                         
-    <li >Grand Total <h3><span className="text-success total-price ml-3" >${sum}.00</span></h3></li>
+    <li >Grand Total <h3><span className="text-success total-price ml-3" >${parseFloat(sum).toFixed(2)}</span></h3></li>
                                 </ul>
-                             /   
+                               
                                 <div className="order-total ">
                                         <label>Payment Method</label>
                                         <div className="input-group mb-5">
                                             <select className="custom-select payment-method">
                                                     <option selected>Ecocash</option>
-                                                    <option value="1">Telecash </option>
+                                                    {/* <option value="1">Telecash </option>
                                                     <option value="2">PayNow</option>
-                                                    <option value="2">Credit Card</option>
+                                                    <option value="2">Credit Card</option> */}
                                                   </select>
                                                 </div>
                                                 <div className="items">
@@ -119,7 +145,7 @@ const Checkout = (props) =>{
 
                                                 </div>
                                 <div className="order-btn">
-                                    <button type="submit" className="site-btn place-btn">Pay</button>
+                                    <button type="submit" onClick={(e)=>handlePay(e)} className="site-btn place-btn">Pay</button>
                                 </div>
                             </div>
                         </div>
