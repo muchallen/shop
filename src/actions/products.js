@@ -1,16 +1,16 @@
-import {GET_ALL_PRODS, ADD_TO_CART,DELETE_CART_PROD,DECREASE_CART_NUMBER,FILTER_PRODUCTS,ADD_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT} from '../actions/types'
+import {GET_ALL_PRODS, ADD_TO_CART,DELETE_CART_PROD,DECREASE_CART_NUMBER,FILTER_PRODUCTS,ADD_PRODUCT, DELETE_PRODUCT, UPDATE_PRODUCT, rootUrl} from '../actions/types'
 import axios from 'axios'
 import { get } from 'jquery'
 
 export const getAllProducts = ()=> dispatch=>{
-      axios.get("http://localhost:8080/api/v1/products").then(( res)=>{      
+      axios.get(rootUrl+"/products").then(( res)=>{      
                    
     dispatch({ type:GET_ALL_PRODS,
         payload: res.data  
                          })
                         })}
  export const addProduct = (product)=> dispatch=>{
-        axios.post(`http://localhost:8080/api/v1/products/`,product).then(( res)=>{ 
+        axios.post(rootUrl + `/products/`,product).then(( res)=>{ 
             getAllProducts()                             
                           dispatch({ type:ADD_PRODUCT,
                               payload: "product added successfully" 
@@ -22,14 +22,14 @@ export const getAllProducts = ()=> dispatch=>{
  
 
 export const deleteProduct = (id)=> dispatch=>{
-        axios.delete(`http://localhost:8080/api/v1/products/delete/${id}`).then(( res)=>{ 
+        axios.delete(rootUrl`/products/delete/${id}`).then(( res)=>{ 
             console.log(res.data)                               
                           dispatch({ type:DELETE_PRODUCT,
                               payload: id  
                                                })
                                               })}
 export const updateProduct = (id,product)=> dispatch=>{
-        axios.put(`http://localhost:8080/api/v1/products/update/${id}`,product).then(( res)=>{ 
+        axios.put(rootUrl+`/products/update/${id}`,product).then(( res)=>{ 
             console.log(res.data)                               
                           dispatch({ type:UPDATE_PRODUCT,
                               payload: product 

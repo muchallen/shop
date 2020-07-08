@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {Modal,Button,ProgressBar} from 'react-bootstrap'
 import {getAllProducts,addProduct,deleteProduct,updateProduct} from '../actions/products'
+import { rootUrl } from '../actions/types'
 
 
 const AddItem = (props) => {
@@ -64,7 +65,7 @@ const handleShow =(product)=>{
 
     function uploadPicture( data , options){  
        
-        axios.post("http://localhost:8080/api/v1/products/image", data, options).then(res => { 
+        axios.post(rootUrl+"/products/image", data, options).then(res => { 
         console.log(res)
         setUploadPercentage(100)
           setTimeout(() => {

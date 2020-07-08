@@ -7,3 +7,4 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export  const DELETE_PRODUCT="DELETE_PRODUCT"
 export const UPDATE_PRODUCT="UPDATE_PRODUCT"
 export const UPLOAD_PICTURE="UPLOAD_PICTURE"
+export const rootUrl ="http://localhost:8080/api/v1"
